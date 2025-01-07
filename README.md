@@ -31,15 +31,15 @@ Linux hasn't been tested yet at all.
 > Try and install Python and Raylib through the official sources as much as possible. If your distro doesn't support official packages try look for the most trusted packages or ports from the original packages.
 
 > [!WARNING]
-> It is recommended to install Raylib to the default path, `/usr/include`, `/usr/local/include` or `/opt/include`. If it doesn't install to one of those paths then you will need to check where it is through your package manager or where you remember it installing to so you can provide the compile script a valid path. (step 6, error catching).
+> It is recommended to install Raylib to the default path, `/usr/include`, `/usr/local/include` or `/opt/include`. If it doesn't install to one of those paths then you will need to check where it is through your package manager or where you remember it installing to so you can provide the compile script a valid path. (step 5, error catching).
 
 - For Linux you will need:
     - Download a specific version that has C and C++ (GCC) from [the MinGW-w64 downloads list](https://www.mingw-w64.org/downloads/), [python with the default library](https://pkgs.org/search/?q=python) and finnally [Git](https://git-scm.com/) for cloning this repo.
 
 1. Clone this repo using: `git clone https://github.com/monitio/leoht.git`
 2. [Download and install Raylib from a package manager](https://pkgs.org/search/?q=raylib).
-4. Open the terminal in the folder Git created when cloning called `leoht`.
-5. Run [the lcompile.py file](/lcompile.py) with Python 3 by running: `python3 wcompile.py`
-6. (error catching) [The Python script](/lcompile.py) will ask you what path you have for Raylib if it can't find it in the normal paths. 
-7. Open [the dist folder](/dist/).
-8. Run the final finished executable normally called `engine`.
+3. Open the terminal in the folder Git created when cloning called `leoht`.
+4. Run [the lcompile.py file](/lcompile.py) with Python 3 by running: `python3 wcompile.py`
+5. (error catching) [The Python script](/lcompile.py) will ask you what path you have for Raylib if it can't find it in the normal paths. 
+6. Open [the dist folder](/dist/).
+7. Run the final finished executable normally called `engine`.
