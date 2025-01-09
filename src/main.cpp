@@ -1,6 +1,13 @@
 // libs
-#include <raylib.h>
+
+// default libs
 #include <string>
+
+// raylib and raylib modules
+#include <raylib.h>
+
+#define RAYGUI_IMPLEMENTATION
+#include <raygui.h>
 
 // modules
 
