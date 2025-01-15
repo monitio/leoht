@@ -39,7 +39,7 @@ Linux hasn't been tested yet at all.
 1. Clone this repo using: `git clone https://github.com/monitio/leoht.git`
 2. [Download and install Raylib from a package manager](https://pkgs.org/search/?q=raylib).
 3. Open the terminal in the folder Git created when cloning called `leoht`.
-4. Run [the lcompile.py file](/lcompile.py) with Python 3 by running: `python3 wcompile.py`
+4. Run [the lcompile.py file](/lcompile.py) with Python 3 by running: `python3 lcompile.py`
 5. (error catching) [The Python script](/lcompile.py) will ask you what path you have for Raylib if it can't find it in the normal paths. 
 6. Open [the dist folder](/dist/).
 7. Run the final finished executable normally called `engine`.
