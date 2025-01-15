@@ -1,12 +1,13 @@
+#define RAYGUI_IMPLEMENTATION
 // libs
 
 // default libs
+#include <cstdlib>
 #include <string>
 
 // raylib and raylib modules
 #include <raylib.h>
 
-#define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
 // modules
@@ -17,12 +18,47 @@
 // native fullscreen (not stretched)
 #include "nativeFullscreen/nativeFullscreen.h"
 
+// Define actions for each button with a variable for the URL
+void OpenURL(const std::string& url) {
+    #ifdef _WIN32  // Windows
+        std::string command = "cmd /c start " + url;
+        system(command.c_str());
+    #else  // Linux
+        std::string command = "xdg-open " + url;
+        system(command.c_str());
+    #endif
+}
+
+// Example functions that use the OpenURL function
+void OpenGitHub() {
+    OpenURL("https://github.com/monitio/leoht");
+}
+
+void OpenWiki() {
+    OpenURL("https://github.com/monitio/leoht/wiki");
+}
+
+void OpenIssues() {
+    OpenURL("https://github.com/monitio/leoht/issues");
+}
+
+void OpenPullRequests() {
+    OpenURL("https://github.com/monitio/leoht/pulls");
+}
+
+void OpenLicense() {
+    OpenURL("https://github.com/monitio/leoht/blob/main/LICENSE");
+}
+
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
 int main(void) {
     // Initialization
     //--------------------------------------------------------------------------------------
+
+    const std::string programVersion = "0.8.1";
+
     const int guiWidth = 1280;
     const int guiHeight = 720;
 
@@ -33,7 +69,9 @@ int main(void) {
     const int screenHeight = guiHeight;
 
     // Make the window, give it a title, width and height
-    InitWindow(screenWidth, screenHeight, "leoht - raylib [core] - 3d scene");
+    InitWindow(screenWidth, screenHeight, "leoht - 3d scene");
+
+    std::string refreshRateT = std::to_string(GetMonitorRefreshRate(0)) + " hz";
 
     // Define the camera to look into our 3d world
     Camera camera = { 0 };
@@ -49,9 +87,19 @@ int main(void) {
     Ray ray = { 0 };                    // Picking line ray
     RayCollision collision = { 0 };     // Ray collision hit info
 
-    
+    bool showGuide = true;              // Control guide visability
+    //std::string tutMessage = "Leoht [dynamicTutMessage] ^ %";
+    std::string tutMessage = 
+            "Hello and welcome to Leoht.\n"
+            "You are currently using version " + programVersion + "\n\n"
+            "The tutorial is on the Github wiki linked below this message.\n"
+            "If you need help, please check in this order:\n"
+            "the wiki, Github Issues/Pull requests, and then email me through the main email.\n\n"
+            "Thanks,\nJames - Monitio creator";
 
-    bool showFPS = false;               // Set showFPS state as false for later use
+    // dev-mode attributes
+    bool debugMode = false;             // debugMode checking
+
     SetTargetFPS(9999);                 // Set our game to run at 9999 frames-per-second as max
     //--------------------------------------------------------------------------------------
 
@@ -79,9 +127,9 @@ int main(void) {
             else collision.hit = false;
         }
 
-        // Check if F5 is pressed to toggle the FPS display
+        // Check if F5 is pressed to toggle debug mode
         if (IsKeyPressed(KEY_F5)) {
-            showFPS = !showFPS; // Toggle the showFPS flag
+            debugMode = !debugMode; // Toggle the debugMode flag
         }
 
         // Check if F4 is pressed to trigger a refresh
@@ -94,7 +142,12 @@ int main(void) {
             ToggleNativeFullscreen();
         }
 
+        if (IsKeyPressed(KEY_F1)) {
+            showGuide = true; // Show the guide
+        }
+
         const int DLPad = 21; // Set left padding (adjust as needed)
+
         //----------------------------------------------------------------------------------
 
         // Draw
@@ -130,12 +183,31 @@ int main(void) {
 
             DrawText("Right click mouse to toggle camera controls", TxPos1, TyPos1, 10, GRAY);
 
-            std::string refreshRateT = std::to_string(GetMonitorRefreshRate(0));
-            DrawText(refreshRateT.c_str(), 10, 20, 10, GRAY);
-
-            // If showFPS is true, display the FPS using DrawFPS
-            if (showFPS) {
-                DrawFPS(10, 10); // Draw the FPS at position (10, 10)
+            // If debugMode is true, display debug tools
+            if (debugMode) {
+                DrawFPS(10, 10);
+                DrawText(refreshRateT.c_str(), 10, 30, 20, GRAY);
+            }
+            
+            if (showGuide) {
+                // Display message box
+                int result = GuiMessageBox(
+                    (Rectangle){ 85, 70, 450, 300 },
+                    "#191#Leoht Guide",
+                    tutMessage.c_str(),  // Use tutMessage
+                    "GitHub;Wiki;Issues;Pull-Request;License"
+                );
+                
+                // Check if the close button (index 0) is clicked
+                if (result == 0) {
+                    showGuide = false;  // Close the message box if close button clicked
+                }
+                // Handle button clicks
+                else if (result == 1) OpenGitHub();
+                else if (result == 2) OpenWiki();
+                else if (result == 3) OpenIssues();
+                else if (result == 4) OpenPullRequests();
+                else if (result == 5) OpenLicense();
             }
 
         EndDrawing();
