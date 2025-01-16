@@ -5,8 +5,8 @@ A game/graphics engine being made with C++ and Raylib. (Work In Progress)
 Windows 11 will be the only tested Windows version for now.
 (Windows 10 should also work just not supported as much or tested)
 
-Linux hasn't been tested yet at all.
-(Debian 12 will be tested first soon)
+Linux hasn't been tested in Debian 12 only.
+(Debian 12 will be tested first when updated)
 
 ### Windows:
 
