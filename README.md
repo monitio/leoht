@@ -37,7 +37,7 @@ Linux hasn't been tested in Debian 12 only.
     - Download a specific version that has C and C++ (GCC) from [the MinGW-w64 downloads list](https://www.mingw-w64.org/downloads/), [python with the default library](https://pkgs.org/search/?q=python) and finnally [Git](https://git-scm.com/) for cloning this repo.
 
 1. Clone this repo using: `git clone https://github.com/monitio/leoht.git`
-2. [Download and install Raylib from a package manager](https://pkgs.org/search/?q=raylib).
+2. [Download and install Raylib from a package manager](https://pkgs.org/search/?q=raylib) or use [the compile guide](https://github.com/raysan5/raylib?tab=readme-ov-file#build-and-installation).
 3. Open the terminal in the folder Git created when cloning called `leoht`.
 4. Run [the lcompile.py file](/lcompile.py) with Python 3 by running: `python3 lcompile.py`
 5. (error catching) [The Python script](/lcompile.py) will ask you what path you have for Raylib if it can't find it in the normal paths. 
