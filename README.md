@@ -8,8 +8,6 @@ Windows 11 will be the only tested Windows version for now.
 Linux hasn't been tested yet at all.
 (Debian 12 will be tested first soon)
 
-Linux executables are just called the file name. There is no extensions for Linux executables unlike windows where the `.exe` file extension is used.
-
 ### Windows:
 
 > [!WARNING]
