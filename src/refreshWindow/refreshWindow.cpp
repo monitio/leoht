@@ -1,9 +1,6 @@
 #include "refreshWindow.h"
-#include <raylib.h>
 
-#if defined(__linux__)
-#include <X11/Xlib.h> // X11 for Linux
-#endif
+#include <raylib.h>
 
 static const int guiWidth = 1280;
 static const int guiHeight = 720;

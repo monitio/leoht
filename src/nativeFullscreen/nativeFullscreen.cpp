@@ -1,9 +1,6 @@
 #include "nativeFullscreen.h"
-#include <raylib.h>
 
-#if defined(__linux__)
-#include <X11/Xlib.h> // X11 for Linux
-#endif
+#include <raylib.h>
 
 static const int guiWidth = 1280;
 static const int guiHeight = 720;
@@ -21,15 +18,12 @@ void GetPrimaryMonitorDimensions() {
         nativefsHeight = GetMonitorHeight(0); // Get the height of the primary monitor
     }
     #elif defined(__linux__)
-    // Linux: Use X11 to get the screen width and height of the primary monitor
-    Display* display = XOpenDisplay(NULL);
-    if (display == NULL) {
-        return;  // Error handling, can't open X display
+    // Linux: Use Raylib to get the screen width and height of the primary monitor
+    int monitorCount = GetMonitorCount();  // Get the number of monitors
+    if (monitorCount > 0) {
+        nativefsWidth = GetMonitorWidth(0);  // Get the width of the primary monitor (index 0)
+        nativefsHeight = GetMonitorHeight(0); // Get the height of the primary monitor
     }
-    Screen* screen = DefaultScreenOfDisplay(display);
-    nativefsWidth = screen->width;
-    nativefsHeight = screen->height;
-    XCloseDisplay(display); // Close the display connection
     #endif
 }
 
@@ -38,8 +32,8 @@ void ToggleNativeFullscreen() {
     GetPrimaryMonitorDimensions(); // Ensure that the screen size is fetched
 
     if (!isFullscreen) {
-        //SetWindowSize(nativefsWidth, nativefsHeight); // Reset to the primary screen's resolution
-        SetWindowSize(1920, 1080);
+        // Set the window size to match the primary monitor's resolution
+        SetWindowSize(nativefsWidth, nativefsHeight);
         SetWindowState(FLAG_FULLSCREEN_MODE); // Set to fullscreen mode
         isFullscreen = true;
     } else {
